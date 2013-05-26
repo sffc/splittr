@@ -48,7 +48,13 @@ window.splittr.init = function() {
 		var dimensions = splitOptionsMatch[3].split(" ");
 
 		var barContainer = document.createElement("div");
-		barContainer.setAttribute("class", "splittr-bar-container");
+		if(vertical){
+			barContainer.setAttribute("class", "splittr-bar-container "
+				+ "splittr-bar-container-vertical");
+		}else{
+			barContainer.setAttribute("class", "splittr-bar-container "
+				+ "splittr-bar-container-horizontal");
+		}
 
 		var pos = 0;
 		var allBar = [];

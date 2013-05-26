@@ -25,6 +25,9 @@
  * use or other dealings in this Software without prior written authorization
  * from the authors or copyright holders.
  */
+[data-splittr] {
+  overflow: hidden; }
+
 [data-splittr] > * {
   position: absolute;
   overflow: auto; }
@@ -37,18 +40,19 @@
 
 .splittr-bar-container {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   z-index: 99;
-  overflow: hidden; }
+  overflow: visible; }
+  .splittr-bar-container.splittr-bar-container-horizontal {
+    left: 0;
+    right: 0; }
+  .splittr-bar-container.splittr-bar-container-vertical {
+    top: 0;
+    bottom: 0; }
 
 .splittr-bar {
   background: black;
   color: white;
-  position: absolute;
-  pointer-events: all; }
+  position: absolute; }
   .splittr-bar.splittr-bar-horizontal {
     left: 0;
     right: 0; }

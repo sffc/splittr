@@ -30,6 +30,7 @@ $unicode_font_family: "Arial Unicode", "Lucida Sans Unicode",
 	"DejaVu Sans", "GNU Unifont", sans-serif;
 
 [data-splittr] {
+	overflow: hidden;
 }
 
 // Select the child elements of a splitter
@@ -50,18 +51,22 @@ $handle_breadth: 8px;
 $handle_length: 30px;
 .splittr-bar-container{
 	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
 	z-index: 99;
-	overflow: hidden;
+	overflow: visible;
+
+	&.splittr-bar-container-horizontal{
+		left: 0;
+		right: 0;
+	}
+	&.splittr-bar-container-vertical{
+		top: 0;
+		bottom: 0;
+	}
 }
 .splittr-bar{
 	background: black;
 	color: white;
 	position: absolute;
-	pointer-events: all;
 
 	&.splittr-bar-horizontal{
 		left: 0;
