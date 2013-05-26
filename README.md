@@ -7,6 +7,7 @@ Splittr
 * Lightweight: no external libraries (no jQuery or Prototype!)
 * Compatible with W3C-compliant browsers
 * Customizable look and feel
+* Free to use under the terms of the X11 License
 
 Want more features?  [Fork me on Github](https://github.com/vote539/splittr)!
 
@@ -47,6 +48,18 @@ In CSS, override the `.splittr-bar` selector with your own colors.  For example,
 	}
 
 You may need to mark the overrides with the `!important` flag.
+
+## Events
+
+The following events are fired on the container element (the one containing the `data-splittr` attribute):
+
+* "splitterMove" when a splitter is moved (essentially forwarding the mousemove event)
+* "splitterDone" when a splitter is dropped in a new location
+
+Both events have the following properties:
+
+* `event.prev` = the panel to the left or above the splitter
+* `event.next` = the panel to the right or below the splitter
 
 ## Example
 
