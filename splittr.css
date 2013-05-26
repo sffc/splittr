@@ -26,7 +26,8 @@
  * from the authors or copyright holders.
  */
 [data-splittr] > * {
-  position: absolute; }
+  position: absolute;
+  overflow: auto; }
 
 [data-splittr^="horizontal"] > * {
   width: 100%; }

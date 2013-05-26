@@ -35,6 +35,7 @@ $unicode_font_family: "Arial Unicode", "Lucida Sans Unicode",
 // Select the child elements of a splitter
 [data-splittr] > * {
 	position: absolute;
+	overflow: auto;
 }
 
 [data-splittr^="horizontal"] > * {
