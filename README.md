@@ -26,6 +26,10 @@ where `direction` is either "horizontal" or "vertical", `interactive` is either 
 
 **Important:** The object containing the `data-split` attribute *must* have a defined `width` and `height`, and it must be `position: relative`, `position: absolute`, or `position: fixed`.  All child elements will become `position: absolute`.
 
+Finally, call the `splitter.init()` function on the page load:
+
+    document.addEventListener("DOMContentLoaded", splitter.init, false);
+
 ### Making Panels Collapsible
 
 Panels may be made "collapsible", meaning that either of the bordering splitters has a button that enables the panel to be collapsed to zero width/height.  To enable a panel to be collapsilbe, add a `data-splittr-collapsible` attribute.

@@ -263,7 +263,3 @@ window.splittr.util.dispatchSplitterDone = function(elem, prev, next){
 	evnt.next = next;
 	elem.dispatchEvent(evnt);
 };
-
-document.addEventListener("DOMContentLoaded", function() {
-	splittr.init();
-}, false);
