@@ -47,7 +47,8 @@
 .splittr-bar {
   background: black;
   color: white;
-  position: absolute; }
+  position: absolute;
+  pointer-events: all; }
   .splittr-bar.splittr-bar-horizontal {
     left: 0;
     right: 0; }

@@ -170,13 +170,11 @@ window.splittr.util.get = function(parent, fn, copy){
 window.splittr.util._elements = function(elements, fn){
 	var filtered = [];
 	var idx = 0;
-	for(var i in elements){
-		if(elements.hasOwnProperty(i)){
-			var elem = elements[i];
-			if(elem.nodeType === 1){
-				if(!fn || fn.call(elem, idx++)!==false){
-					filtered.push(elem);
-				}
+	for(var i = 0; i<elements.length; i++){
+		var elem = elements[i];
+		if(elem.nodeType === 1){
+			if(!fn || fn.call(elem, idx++)!==false){
+				filtered.push(elem);
 			}
 		}
 	}
