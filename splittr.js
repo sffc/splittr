@@ -137,14 +137,14 @@ window.splittr.resize = function(elem, newSize, anchorNext){
 			throw new Error("Splittr: Must have next panel (anchor prev)");
 		}
 		if(vertical){
-			elem.next.style.width = (elem.next.offsetWidth - dSize);
-			elem.next.style.left = (elem.next.offsetLeft + dSize);
-			elem.nextBar.style.left = (elem.nextBar.offsetLeft + dSize);
+			elem.next.style.width = (elem.next.offsetWidth - dSize)+"px";
+			elem.next.style.left = (elem.next.offsetLeft + dSize)+"px";
+			elem.nextBar.style.left = (elem.nextBar.offsetLeft + dSize)+"px";
 			elem.style.width = newSize+"px";
 		}else{
-			elem.next.style.height = (elem.next.offsetHeight - dSize);
-			elem.next.style.top = (elem.next.offsetTop + dSize);
-			elem.nextBar.style.top = (elem.nextBar.offsetTop + dSize);
+			elem.next.style.height = (elem.next.offsetHeight - dSize)+"px";
+			elem.next.style.top = (elem.next.offsetTop + dSize)+"px";
+			elem.nextBar.style.top = (elem.nextBar.offsetTop + dSize)+"px";
 			elem.style.height = newSize+"px";
 		}
 	}
