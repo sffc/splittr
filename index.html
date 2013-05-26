@@ -1,0 +1,40 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Splitter Demo</title>
+<script type="text/javascript" src="splittr.js"></script>
+<link rel="stylesheet" type="text/css" href="splittr.css">
+<style type="text/css">
+#panel1{
+	width: 300px;
+	height: 250px;
+	border: 1px dashed blue;
+	position: relative;
+}
+#panel2{
+	background-color: green;
+}
+#panel3{
+	background-color: orange;
+}
+#panel4{
+	background-color: purple;
+}
+</style>
+</head>
+<body>
+
+<div data-split="vertical static 100 50" id="panel1">
+	<div id="panel2">
+		hello
+	</div>
+	<div id="panel3">
+		world
+	</div>
+	<div id="panel4">
+		world
+	</div>
+</div>
+
+</body>
+</html>

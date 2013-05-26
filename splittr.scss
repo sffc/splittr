@@ -1,0 +1,47 @@
+[data-split] {
+}
+
+// Select the child elements of a splitter
+[data-split] > * {
+	position: absolute;
+}
+
+// Horizontal
+[data-split^="horizontal"] > * {
+	width: 100%;
+
+	&:first-child{
+		top: 0;
+	}
+	&:last-child{
+		bottom: 0;
+	}
+}
+
+// Vertical
+[data-split^="vertical"] > * {
+	height: 100%;
+	
+	&:first-child{
+		left: 0;
+	}
+	&:last-child{
+		right: 0;
+	}
+}
+
+// Bar
+.splittr-bar{
+	background-color: red;
+	position: absolute;
+	z-index: 99;
+
+	&.splittr-bar-horizontal{
+		left: 0;
+		right: 0;
+	}
+	&.splittr-bar-vertical{
+		top: 0;
+		bottom: 0;
+	}
+}
