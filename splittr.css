@@ -1,27 +1,100 @@
-[data-split] > * {
+[data-splittr] > * {
   position: absolute; }
 
-[data-split^="horizontal"] > * {
+[data-splittr^="horizontal"] > * {
   width: 100%; }
-  [data-split^="horizontal"] > *:first-child {
-    top: 0; }
-  [data-split^="horizontal"] > *:last-child {
-    bottom: 0; }
 
-[data-split^="vertical"] > * {
+[data-splittr^="vertical"] > * {
   height: 100%; }
-  [data-split^="vertical"] > *:first-child {
-    left: 0; }
-  [data-split^="vertical"] > *:last-child {
-    right: 0; }
+
+.splittr-bar-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  overflow: hidden; }
 
 .splittr-bar {
-  background-color: red;
-  position: absolute;
-  z-index: 99; }
+  background: black;
+  color: white;
+  position: absolute; }
   .splittr-bar.splittr-bar-horizontal {
     left: 0;
     right: 0; }
+    .splittr-bar.splittr-bar-horizontal.splittr-bar-dynamic {
+      cursor: row-resize; }
+    .splittr-bar.splittr-bar-horizontal > .splittr-handle-container {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 100%;
+      background: inherit; }
+      .splittr-bar.splittr-bar-horizontal > .splittr-handle-container > .splittr-handle-prev {
+        position: absolute;
+        left: -15px;
+        width: 30px;
+        height: 8px;
+        background: inherit;
+        font-family: "Arial Unicode", "Lucida Sans Unicode", "DejaVu Sans", "GNU Unifont", sans-serif;
+        line-height: 8px;
+        vertical-align: middle;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        z-index: -1;
+        top: -8px; }
+      .splittr-bar.splittr-bar-horizontal > .splittr-handle-container > .splittr-handle-next {
+        position: absolute;
+        left: -15px;
+        width: 30px;
+        height: 8px;
+        background: inherit;
+        font-family: "Arial Unicode", "Lucida Sans Unicode", "DejaVu Sans", "GNU Unifont", sans-serif;
+        line-height: 8px;
+        vertical-align: middle;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        z-index: -1;
+        bottom: -8px; }
   .splittr-bar.splittr-bar-vertical {
     top: 0;
     bottom: 0; }
+    .splittr-bar.splittr-bar-vertical.splittr-bar-dynamic {
+      cursor: col-resize; }
+    .splittr-bar.splittr-bar-vertical > .splittr-handle-container {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      background: inherit; }
+      .splittr-bar.splittr-bar-vertical > .splittr-handle-container > .splittr-handle-prev {
+        position: absolute;
+        top: -15px;
+        height: 30px;
+        width: 8px;
+        background: inherit;
+        font-family: "Arial Unicode", "Lucida Sans Unicode", "DejaVu Sans", "GNU Unifont", sans-serif;
+        line-height: 30px;
+        vertical-align: middle;
+        font-size: 12px;
+        cursor: pointer;
+        z-index: -1;
+        left: -8px;
+        text-align: left; }
+      .splittr-bar.splittr-bar-vertical > .splittr-handle-container > .splittr-handle-next {
+        position: absolute;
+        top: -15px;
+        height: 30px;
+        width: 8px;
+        background: inherit;
+        font-family: "Arial Unicode", "Lucida Sans Unicode", "DejaVu Sans", "GNU Unifont", sans-serif;
+        line-height: 30px;
+        vertical-align: middle;
+        font-size: 12px;
+        cursor: pointer;
+        z-index: -1;
+        right: -8px;
+        text-align: right; }

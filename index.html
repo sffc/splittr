@@ -5,36 +5,50 @@
 <script type="text/javascript" src="splittr.js"></script>
 <link rel="stylesheet" type="text/css" href="splittr.css">
 <style type="text/css">
+#container{
+}
 #panel1{
 	width: 300px;
 	height: 250px;
-	border: 1px dashed blue;
+	border: 1px solid black;
 	position: relative;
 }
 #panel2{
-	background-color: green;
+	background-color: #666;
 }
 #panel3{
-	background-color: orange;
+	background-color: #999;
 }
 #panel4{
-	background-color: purple;
+	background-color: #CCC;
 }
 </style>
 </head>
 <body>
 
-<div data-split="vertical static 100 50" id="panel1">
-	<div id="panel2">
-		hello
-	</div>
-	<div id="panel3">
-		world
-	</div>
-	<div id="panel4">
-		world
+<div id="container">
+	<div data-splittr="horizontal dynamic 100 50" id="panel1">
+		<div data-splittr-collapsible id="panel2">
+			Alpha
+		</div>
+		<div data-splittr-collapsible id="panel3">
+			Beta
+		</div>
+		<div id="panel4">
+			Gamma
+		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+window.splittr.barBreadth = 10;
+document.getElementById("panel1").addEventListener("splitterMove", function(event){
+	console.log(event);
+});
+document.getElementById("panel1").addEventListener("splitterDone", function(event){
+	console.log(event);
+});
+</script>
 
 </body>
 </html>

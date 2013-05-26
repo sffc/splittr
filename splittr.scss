@@ -1,47 +1,115 @@
-[data-split] {
+$unicode_font_family: "Arial Unicode", "Lucida Sans Unicode",
+	"DejaVu Sans", "GNU Unifont", sans-serif;
+
+[data-splittr] {
 }
 
 // Select the child elements of a splitter
-[data-split] > * {
+[data-splittr] > * {
 	position: absolute;
 }
 
-// Horizontal
-[data-split^="horizontal"] > * {
+[data-splittr^="horizontal"] > * {
 	width: 100%;
-
-	&:first-child{
-		top: 0;
-	}
-	&:last-child{
-		bottom: 0;
-	}
 }
-
-// Vertical
-[data-split^="vertical"] > * {
+[data-splittr^="vertical"] > * {
 	height: 100%;
-	
-	&:first-child{
-		left: 0;
-	}
-	&:last-child{
-		right: 0;
-	}
 }
 
 // Bar
-.splittr-bar{
-	background-color: red;
+$handle_breadth: 8px;
+$handle_length: 30px;
+.splittr-bar-container{
 	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	z-index: 99;
+	overflow: hidden;
+}
+.splittr-bar{
+	background: black;
+	color: white;
+	position: absolute;
 
 	&.splittr-bar-horizontal{
 		left: 0;
 		right: 0;
+		&.splittr-bar-dynamic{
+			cursor: row-resize;
+		}
+		& > .splittr-handle-container{
+			position: absolute;
+			left: 50%;
+			top: 0;
+			height: 100%;
+			background: inherit;
+
+			@mixin handle-horizontal{
+				position: absolute;
+				left: -$handle_length/2;
+				width: $handle_length;
+				height: $handle_breadth;
+				background: inherit;
+				font-family: $unicode_font_family;
+				line-height: $handle_breadth;
+				vertical-align: middle;
+				font-size: 1.5*$handle_breadth;
+				cursor: pointer;
+				text-align: center;
+				z-index: -1;
+			}
+
+			& > .splittr-handle-prev{
+				@include handle-horizontal;
+				top: -$handle_breadth;
+			}
+
+			& > .splittr-handle-next{
+				@include handle-horizontal;
+				bottom: -$handle_breadth;
+			}
+		}
 	}
 	&.splittr-bar-vertical{
 		top: 0;
 		bottom: 0;
+		&.splittr-bar-dynamic{
+			cursor: col-resize;
+		}
+		& > .splittr-handle-container{
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			background: inherit;
+
+			@mixin handle-vertical{
+				position: absolute;
+				top: -$handle_length/2;
+				height: $handle_length;
+				width: $handle_breadth;
+				background: inherit;
+				font-family: $unicode_font_family;
+				line-height: $handle_length;
+				vertical-align: middle;
+				font-size: 1.5*$handle_breadth;
+				cursor: pointer;
+				z-index: -1;
+			}
+
+			& > .splittr-handle-prev{
+				@include handle-vertical;
+				left: -$handle_breadth;
+				text-align: left;
+			}
+
+			& > .splittr-handle-next{
+				@include handle-vertical;
+				right: -$handle_breadth;
+				text-align: right;
+			}
+		}
 	}
 }
