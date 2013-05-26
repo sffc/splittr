@@ -85,11 +85,11 @@ window.splittr.init = function() {
 			lastChild.style.bottom = 0;
 			lastChild.style.height = lastChild.offsetHeight+"px";
 		}
-		if(dynamic){
-			for (var i = allBar.length - 1; i >= 0; i--) {
-				var bar = allBar[i];
-				var prev = children[i];
-				var next = children[i+1];
+		for (var i = allBar.length - 1; i >= 0; i--) {
+			var bar = allBar[i];
+			var prev = children[i];
+			var next = children[i+1];
+			if(dynamic){
 				window.splittr.util.handleMouseEvents(bar, prev, next, vertical);
 				if(prev.collapsible){
 					bar.addCollapse(true, vertical, prev, next);
@@ -97,9 +97,59 @@ window.splittr.init = function() {
 				if(next.collapsible){
 					bar.addCollapse(false, vertical, prev, next);
 				}
-			};
-		}
+			}
+
+			// Save references
+			prev.next = next;
+			next.prev = prev;
+			bar.next = next;
+			bar.prev = prev;
+			prev.nextBar = bar;
+			next.prevBar = bar;
+		};
 	}, false);
+};
+window.splittr.resize = function(elem, newSize, anchorNext){
+	var rawSplitOptions = elem.parentNode.getAttribute("data-splittr");
+	if(rawSplitOptions === null){
+		throw new Error("Splittr: Attempted to resize an uninitialized element.");
+	}
+	var vertical = rawSplitOptions.indexOf("vertical") === 0;
+	var oldSize = vertical ? elem.offsetWidth : elem.offsetHeight;
+	var dSize = newSize - oldSize;
+	if(anchorNext){
+		if(!elem.prev){
+			throw new Error("Splittr: Must have previous panel (anchor next)");
+		}
+		if(vertical){
+			elem.prev.style.width = (elem.prev.offsetWidth - dSize)+"px";
+			elem.prevBar.style.left = (elem.prevBar.offsetLeft - dSize)+"px";
+			elem.style.left = (elem.offsetLeft - dSize)+"px";
+			elem.style.width = newSize+"px";
+		}else{
+			elem.prev.style.height = (elem.prev.offsetHeight - dSize)+"px";
+			elem.prevBar.style.top = (elem.prevBar.offsetTop - dSize)+"px";
+			elem.style.top = (elem.offsetTop - dSize)+"px";
+			elem.style.height = newSize+"px";
+		}
+	}else{
+		if(!elem.next){
+			throw new Error("Splittr: Must have next panel (anchor prev)");
+		}
+		if(vertical){
+			elem.next.style.width = (elem.next.offsetWidth - dSize);
+			elem.next.style.left = (elem.next.offsetLeft + dSize);
+			elem.nextBar.style.left = (elem.nextBar.offsetLeft + dSize);
+			elem.style.width = newSize+"px";
+		}else{
+			elem.next.style.height = (elem.next.offsetHeight - dSize);
+			elem.next.style.top = (elem.next.offsetTop + dSize);
+			elem.nextBar.style.top = (elem.nextBar.offsetTop + dSize);
+			elem.style.height = newSize+"px";
+		}
+	}
+	window.splittr.util.dispatchSplitterMove(elem.parentNode, elem.prev, elem.next);
+	window.splittr.util.dispatchSplitterDone(elem.parentNode, elem.prev, elem.next);
 };
 
 window.splittr.util = {};
@@ -111,7 +161,12 @@ window.splittr.util.copy = function(orig){
 		}
 	}
 	return newArr;
-}
+};
+window.splittr.util.get = function(parent, fn, copy){
+	var elements = parent.getElementsByTagName("*");
+	if(copy) elements = window.splittr.util.copy(elements);
+	return window.splittr.util._elements(elements, fn);
+};
 window.splittr.util._elements = function(elements, fn){
 	var filtered = [];
 	var idx = 0;
@@ -126,11 +181,6 @@ window.splittr.util._elements = function(elements, fn){
 		}
 	}
 	return filtered;
-}
-window.splittr.util.get = function(parent, fn, copy){
-	var elements = parent.getElementsByTagName("*");
-	if(copy) elements = window.splittr.util.copy(elements);
-	return window.splittr.util._elements(elements, fn);
 };
 window.splittr.util.children = function(parent, fn, copy){
 	var elements = parent.childNodes;

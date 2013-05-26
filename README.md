@@ -53,7 +53,17 @@ In CSS, override the `.splittr-bar` selector with your own colors.  For example,
 
 You may need to mark the overrides with the `!important` flag.
 
-## Events
+## JavaScript Interface
+
+### Resizing Panels Programatically
+
+Panels can be resized programatically using the `splittr.resize(element, newSize, anchorNext)` function.  Parameters are:
+
+1. `element` = the HTMLElement which you wish to resize.  Must be a child of an initialized Splittr container.
+2. `newSize` = a number representing the new pizel size of the panel.  Splittr assumes that you have checked the bounds.
+3. `anchorNext` = `true` if the right side of the panel should stay the same; `false` or *omit* if the left size of the panel should stay the same.
+
+### Events
 
 The following events are fired on the container element (the one containing the `data-splittr` attribute):
 
