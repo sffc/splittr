@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Splitter Demo</title>
+<script type="text/javascript" src="../splittr.js"></script>
+<link rel="stylesheet" type="text/css" href="../splittr.css">
+<style type="text/css">
+#container{
+}
+#panel1{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+#panel2{
+	background-color: #666;
+}
+#panel3{
+	background-color: #999;
+}
+#panel4{
+	background-color: #CCC;
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+	<div data-splittr="vertical dynamic 100 50" id="panel1">
+		<div data-splittr-collapsible id="panel2">
+			Alpha
+		</div>
+		<div data-splittr-collapsible id="panel3">
+			Beta
+		</div>
+		<div id="panel4">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur turpis odio, elementum vel suscipit ut, lacinia ac dui. Duis venenatis elementum eleifend. Proin accumsan eros eget porta accumsan. Maecenas feugiat sollicitudin magna sagittis iaculis. Integer magna metus, pharetra eu nibh ac, vehicula dictum nisi. Maecenas pellentesque mattis diam ac ultrices. Nam nibh orci, ullamcorper ac diam at, bibendum fringilla mauris. Fusce at tellus eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec ut orci vel dui convallis blandit.
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.splittr.barBreadth = 10;
+document.getElementById("panel1").addEventListener("splitterMove", function(event){
+	console.log(event);
+});
+document.getElementById("panel1").addEventListener("splitterDone", function(event){
+	console.log(event);
+});
+splittr.init();
+</script>
+
+</body>
+</html>

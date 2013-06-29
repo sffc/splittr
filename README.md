@@ -9,7 +9,7 @@ Splittr
 * Customizable look and feel
 * Free to use under the terms of the X11 License
 
-Want more features?  [Fork me on Github](https://github.com/vote539/splittr)!
+The software is not perfect.  Find a bug?  Want more features?  [Report it or fork me on Github](https://github.com/vote539/splittr)!
 
 ## Usage
 
