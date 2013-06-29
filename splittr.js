@@ -96,12 +96,12 @@
 				var prev = children[i];
 				var next = children[i+1];
 				if(dynamic){
-					window.splittr.util.handleMouseEvents(bar, prev, next, vertical);
+					window.splittr.util.handleMouseEvents(bar, prev, next, vertical, i===allBar.length-1);
 					if(prev.collapsible){
-						bar.addCollapse(true, vertical, prev, next);
+						bar.addCollapse(true, vertical, prev, next, i===allBar.length-1);
 					}
 					if(next.collapsible){
-						bar.addCollapse(false, vertical, prev, next);
+						bar.addCollapse(false, vertical, prev, next, i===allBar.length-1);
 					}
 				}
 
@@ -145,13 +145,14 @@
 			if(!elem.next){
 				throw new Error("Splittr: Must have next panel (anchor prev)");
 			}
+			var end = !elem.next.next;
 			if(vertical){
-				elem.next.style.width = (elem.next.offsetWidth - dSize)+"px";
+				if(!end) elem.next.style.width = (elem.next.offsetWidth - dSize)+"px";
 				elem.next.style.left = (elem.next.offsetLeft + dSize)+"px";
 				elem.nextBar.style.left = (elem.nextBar.offsetLeft + dSize)+"px";
 				elem.style.width = newSize+"px";
 			}else{
-				elem.next.style.height = (elem.next.offsetHeight - dSize)+"px";
+				if(!end) elem.next.style.height = (elem.next.offsetHeight - dSize)+"px";
 				elem.next.style.top = (elem.next.offsetTop + dSize)+"px";
 				elem.nextBar.style.top = (elem.nextBar.offsetTop + dSize)+"px";
 				elem.style.height = newSize+"px";
@@ -209,7 +210,7 @@
 			barCls += " splittr-bar-dynamic";
 		}
 		bar.setAttribute("class", barCls);
-		bar.addCollapse = function(previous, vertical, prev, next){
+		bar.addCollapse = function(previous, vertical, prev, next, end){
 			var handleContainer = document.createElement("div");
 			handleContainer.setAttribute("class", "splittr-handle-container");
 			var handle = document.createElement("div");
@@ -222,27 +223,27 @@
 			handle.addEventListener("click", function(event){
 				if(previous){
 					if(vertical){
-						bar.style.left    = (bar.offsetLeft    - prev.offsetWidth )+"px";
-						next.style.left   = (bar.offsetLeft    + bar.offsetWidth  )+"px";
-						next.style.width  = (next.offsetWidth  + prev.offsetWidth )+"px";
-						prev.style.width  = 0;
+						bar.style.left           = (bar.offsetLeft    - prev.offsetWidth )+"px";
+						next.style.left          = (bar.offsetLeft    + bar.offsetWidth  )+"px";
+						if(!end)next.style.width = (next.offsetWidth  + prev.offsetWidth )+"px";
+						prev.style.width         = 0;
 					}else{
-						bar.style.top     = (bar.offsetTop     - prev.offsetHeight)+"px";
-						next.style.top    = (bar.offsetTop     + bar.offsetHeight )+"px";
-						next.style.height = (next.offsetHeight + prev.offsetHeight)+"px";
-						prev.style.height = 0;
+						bar.style.top            = (bar.offsetTop     - prev.offsetHeight)+"px";
+						next.style.top           = (bar.offsetTop     + bar.offsetHeight )+"px";
+						if(!end)next.style.height= (next.offsetHeight + prev.offsetHeight)+"px";
+						prev.style.height        = 0;
 					}
 				}else{
 					if(vertical){
-						bar.style.left    = (bar.offsetLeft    + next.offsetWidth )+"px";
-						next.style.left   = (next.offsetLeft   + next.offsetWidth )+"px";
-						prev.style.width  = (prev.offsetWidth  + next.offsetWidth )+"px";
-						next.style.width  = 0;
+						bar.style.left           = (bar.offsetLeft    + next.offsetWidth )+"px";
+						next.style.left          = (next.offsetLeft   + next.offsetWidth )+"px";
+						prev.style.width         = (prev.offsetWidth  + next.offsetWidth )+"px";
+						if(!end)next.style.width = 0;
 					}else{
-						bar.style.top     = (bar.offsetTop     + next.offsetHeight)+"px";
-						next.style.top    = (next.offsetTop    + next.offsetHeight)+"px";
-						prev.style.height = (prev.offsetHeight + next.offsetHeight)+"px";
-						next.style.height = 0;
+						bar.style.top            = (bar.offsetTop     + next.offsetHeight)+"px";
+						next.style.top           = (next.offsetTop    + next.offsetHeight)+"px";
+						prev.style.height        = (prev.offsetHeight + next.offsetHeight)+"px";
+						if(!end)next.style.height= 0;
 					}
 				}
 				window.splittr.util.dispatchSplitterMove(bar.parentNode.parentNode, prev, next);
@@ -267,7 +268,7 @@
 		} while (element = element.offsetParent);
 		return retval;
 	};
-	window.splittr.util.handleMouseEvents = function(bar, prev, next, vertical){
+	window.splittr.util.handleMouseEvents = function(bar, prev, next, vertical, end){
 		var origClientPos = null, origOffsetPos, minDPos, maxDPos,
 		origPrevBreadth, origNextBreadth;
 		bar.addEventListener("mousedown", function(event){
@@ -287,15 +288,15 @@
 			if(dPos < minDPos) dPos = minDPos;
 			if(dPos > maxDPos) dPos = maxDPos;
 			if(vertical){
-				bar.style.left   = (origOffsetPos + dPos)+"px";
-				prev.style.width = (origPrevBreadth + dPos)+"px";
-				next.style.left  = (origOffsetPos + dPos + window.splittr.barBreadth)+"px";
-				next.style.width = (origNextBreadth - dPos)+"px";
+				bar.style.left           = (origOffsetPos + dPos)+"px";
+				prev.style.width         = (origPrevBreadth + dPos)+"px";
+				next.style.left          = (origOffsetPos + dPos + window.splittr.barBreadth)+"px";
+				if(!end)next.style.width = (origNextBreadth - dPos)+"px";
 			}else{
-				bar.style.top     = (origOffsetPos + dPos)+"px";
-				prev.style.height = (origPrevBreadth + dPos)+"px";
-				next.style.top    = (origOffsetPos + dPos + window.splittr.barBreadth)+"px";
-				next.style.height = (origNextBreadth - dPos)+"px";
+				bar.style.top             = (origOffsetPos + dPos)+"px";
+				prev.style.height         = (origPrevBreadth + dPos)+"px";
+				next.style.top            = (origOffsetPos + dPos + window.splittr.barBreadth)+"px";
+				if(!end)next.style.height = (origNextBreadth - dPos)+"px";
 			}
 			window.splittr.util.dispatchSplitterMove(next.parentNode, prev, next);
 		}, false);
