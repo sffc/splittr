@@ -26,16 +26,24 @@
  * from the authors or copyright holders.
  */
 
- (function(window){
+(function (factory) {
+  if (typeof define === "function" && define.amd) {
+    // AMD
+    define(["splittr"], factory);
+  } else {
+    // Browser globals
+    window.splittr = factory();
+  }
+}(function(){
 
 	// Declare
-	window.splittr = {};
-	window.splittr.barBreadth = 5;
+	var splittr = {};
+	splittr.barBreadth = 5;
 
 	// Static Methods
-	window.splittr.init = function() {
+	splittr.init = function() {
 		var splitOptionsRegex = /^(horizontal|vertical) (static|dynamic) ((?:\d+ ?)+)$/;
-		window.splittr.util.get(document, function(){
+		splittr.util.get(document, function(){
 			var rawSplitOptions = this.getAttribute("data-splittr");
 			if(!rawSplitOptions) return false;
 			var container = this;
@@ -60,16 +68,16 @@
 
 			var pos = 0;
 			var allBar = [];
-			var children = window.splittr.util.children(container, function(idx){
+			var children = splittr.util.children(container, function(idx){
 				var panel = this;
 				var dim = parseInt(dimensions[idx]) || 0;
 				this.collapsible = this.getAttribute("data-splittr-collapsible") !== null;
 
 				if(idx > 0){
-					var bar = window.splittr.util.makeBar(vertical, dynamic, pos);
+					var bar = splittr.util.makeBar(vertical, dynamic, pos);
 					barContainer.appendChild(bar);
 					allBar.push(bar);
-					pos += window.splittr.barBreadth;
+					pos += splittr.barBreadth;
 				}
 
 				if(vertical){
@@ -96,7 +104,7 @@
 				var prev = children[i];
 				var next = children[i+1];
 				if(dynamic){
-					window.splittr.util.handleMouseEvents(bar, prev, next, vertical, i===allBar.length-1);
+					splittr.util.handleMouseEvents(bar, prev, next, vertical, i===allBar.length-1);
 					if(prev.collapsible){
 						bar.addCollapse(true, vertical, prev, next, i===allBar.length-1);
 					}
@@ -115,10 +123,10 @@
 			};
 
 			// Listen to the window resize event
-			window.splittr.util.handleWindowResizeEvent(container, children, vertical);
+			splittr.util.handleWindowResizeEvent(container, children, vertical);
 		}, false);
 	};
-	window.splittr.resize = function(elem, newSize, anchorNext){
+	splittr.resize = function(elem, newSize, anchorNext){
 		var rawSplitOptions = elem.parentNode.getAttribute("data-splittr");
 		if(rawSplitOptions === null){
 			throw new Error("Splittr: Attempted to resize an uninitialized element.");
@@ -158,12 +166,12 @@
 				elem.style.height = newSize+"px";
 			}
 		}
-		window.splittr.util.dispatchSplitterMove(elem.parentNode, elem.prev, elem.next);
-		window.splittr.util.dispatchSplitterDone(elem.parentNode, elem.prev, elem.next);
+		splittr.util.dispatchSplittrMove(elem.parentNode, elem.prev, elem.next);
+		splittr.util.dispatchSplittrDone(elem.parentNode, elem.prev, elem.next);
 	};
 
-	window.splittr.util = {};
-	window.splittr.util.copy = function(orig){
+	splittr.util = {};
+	splittr.util.copy = function(orig){
 		var newArr = [];
 		for(var i in orig){
 			if(orig.hasOwnProperty(i)){
@@ -172,12 +180,12 @@
 		}
 		return newArr;
 	};
-	window.splittr.util.get = function(parent, fn, copy){
+	splittr.util.get = function(parent, fn, copy){
 		var elements = parent.getElementsByTagName("*");
-		if(copy) elements = window.splittr.util.copy(elements);
-		return window.splittr.util._elements(elements, fn);
+		if(copy) elements = splittr.util.copy(elements);
+		return splittr.util._elements(elements, fn);
 	};
-	window.splittr.util._elements = function(elements, fn){
+	splittr.util._elements = function(elements, fn){
 		var filtered = [];
 		var idx = 0;
 		for(var i = 0; i<elements.length; i++){
@@ -190,20 +198,20 @@
 		}
 		return filtered;
 	};
-	window.splittr.util.children = function(parent, fn, copy){
+	splittr.util.children = function(parent, fn, copy){
 		var elements = parent.childNodes;
-		if(copy) elements = window.splittr.util.copy(elements);
-		return window.splittr.util._elements(elements, fn);
+		if(copy) elements = splittr.util.copy(elements);
+		return splittr.util._elements(elements, fn);
 	};
-	window.splittr.util.makeBar = function(vertical, dynamic, pos) {
+	splittr.util.makeBar = function(vertical, dynamic, pos) {
 		var bar = document.createElement("div"), barCls = "splittr-bar";
 		if(vertical){
 			barCls += " splittr-bar-vertical";
-			bar.style.width = window.splittr.barBreadth+"px";
+			bar.style.width = splittr.barBreadth+"px";
 			bar.style.left = pos+"px";
 		}else{
 			barCls += " splittr-bar-horizontal";
-			bar.style.height = window.splittr.barBreadth+"px";
+			bar.style.height = splittr.barBreadth+"px";
 			bar.style.top = pos+"px";
 		}
 		if(dynamic){
@@ -246,29 +254,29 @@
 						if(!end)next.style.height= 0;
 					}
 				}
-				window.splittr.util.dispatchSplitterMove(bar.parentNode.parentNode, prev, next);
+				splittr.util.dispatchSplittrMove(bar.parentNode.parentNode, prev, next);
 				// The "done" event is already fired because of the mouseup catchall
 			}, false);
-	handleContainer.appendChild(handle);
-	bar.appendChild(handleContainer);
-	}
-	return bar;
+			handleContainer.appendChild(handle);
+			bar.appendChild(handleContainer);
+		}
+		return bar;
 	};
-	window.splittr.util.getTotalOffsetTop = function(element){
+	splittr.util.getTotalOffsetTop = function(element){
 		var retval = 0;
 		do {
 			retval += element.offsetTop;
 		} while (element = element.offsetParent);
 		return retval;
 	};
-	window.splittr.util.getTotalOffsetLeft = function(element){
+	splittr.util.getTotalOffsetLeft = function(element){
 		var retval = 0;
 		do {
 			retval += element.offsetLeft;
 		} while (element = element.offsetParent);
 		return retval;
 	};
-	window.splittr.util.handleMouseEvents = function(bar, prev, next, vertical, end){
+	splittr.util.handleMouseEvents = function(bar, prev, next, vertical, end){
 		var origClientPos = null, origOffsetPos, minDPos, maxDPos,
 		origPrevBreadth, origNextBreadth;
 		bar.addEventListener("mousedown", function(event){
@@ -290,24 +298,24 @@
 			if(vertical){
 				bar.style.left           = (origOffsetPos + dPos)+"px";
 				prev.style.width         = (origPrevBreadth + dPos)+"px";
-				next.style.left          = (origOffsetPos + dPos + window.splittr.barBreadth)+"px";
+				next.style.left          = (origOffsetPos + dPos + splittr.barBreadth)+"px";
 				if(!end)next.style.width = (origNextBreadth - dPos)+"px";
 			}else{
 				bar.style.top             = (origOffsetPos + dPos)+"px";
 				prev.style.height         = (origPrevBreadth + dPos)+"px";
-				next.style.top            = (origOffsetPos + dPos + window.splittr.barBreadth)+"px";
+				next.style.top            = (origOffsetPos + dPos + splittr.barBreadth)+"px";
 				if(!end)next.style.height = (origNextBreadth - dPos)+"px";
 			}
-			window.splittr.util.dispatchSplitterMove(next.parentNode, prev, next);
+			splittr.util.dispatchSplittrMove(next.parentNode, prev, next);
 		}, false);
 		window.addEventListener("mouseup", function(event){
 			if(origClientPos !== null){
 				origClientPos = null;
-				window.splittr.util.dispatchSplitterDone(next.parentNode, prev, next);
+				splittr.util.dispatchSplittrDone(next.parentNode, prev, next);
 			}
 		}, false);
 	};
-	window.splittr.util.handleWindowResizeEvent = function(container, children, vertical){
+	splittr.util.handleWindowResizeEvent = function(container, children, vertical){
 		var oldContainerOffsetWidth = container.offsetWidth;
 		var oldContainerOffsetHeight = container.offsetHeight;
 		window.addEventListener("resize", function(event){
@@ -321,19 +329,22 @@
 			// TODO: this is incomplete.  Implement some kind of resize cascade.
 		});
 	};
-	window.splittr.util.dispatchSplitterMove = function(elem, prev, next){
+	splittr.util.dispatchSplittrMove = function(elem, prev, next){
 		var evnt = document.createEvent("Event");
-		evnt.initEvent("splitterMove", true, true);
+		evnt.initEvent("splittrMove", true, true);
 		evnt.prev = prev;
 		evnt.next = next;
 		elem.dispatchEvent(evnt);
 	};
-	window.splittr.util.dispatchSplitterDone = function(elem, prev, next){
+	splittr.util.dispatchSplittrDone = function(elem, prev, next){
 		var evnt = document.createEvent("Event");
-		evnt.initEvent("splitterDone", true, true);
+		evnt.initEvent("splittrDone", true, true);
 		evnt.prev = prev;
 		evnt.next = next;
 		elem.dispatchEvent(evnt);
 	};
 
-})(window);
+	// Expose
+	return splittr;
+
+}));

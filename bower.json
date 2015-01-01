@@ -1,0 +1,28 @@
+{
+  "name": "splittr",
+  "main": "splittr.js",
+  "version": "1.0.0",
+  "authors": [
+    "Shane Carr <shane.carr@wustl.edu>"
+  ],
+  "description": "Very simple GUI splitter for CSS and JavaScript",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "splitter",
+    "gui",
+    "layout",
+    "divider",
+    "frame"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/vote539/splittr",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

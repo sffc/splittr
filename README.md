@@ -11,6 +11,16 @@ Splittr
 
 The software is not perfect.  Find a bug?  Want more features?  [Report it or fork me on Github](https://github.com/vote539/splittr)!
 
+## Installation
+
+This library can be installed in one of the following ways (from most to least desirable):
+
+1. Use Bower: `bower install splittr`
+2. Add this repo as a subrepo in your project
+3. Manually download *splittr.min.js* and *splittr.css* and include them in your project
+
+This module is AMD-compliant.  If AMD is not present when the script is loaded, the module will put itself on the `window.splittr` namespace.  Otherwise, it will not add any global references to itself.
+
 ## Usage
 
 First, include the JavaScript and CSS libraries.
@@ -26,9 +36,9 @@ where `direction` is either "horizontal" or "vertical", `interactive` is either 
 
 **Important:** The object containing the `data-split` attribute *must* have a defined `width` and `height`, and it must be `position: relative`, `position: absolute`, or `position: fixed`.  All child elements will become `position: absolute`.
 
-Finally, call the `splitter.init()` function on the page load:
+Finally, call the `splittr.init()` function on the page load:
 
-    document.addEventListener("DOMContentLoaded", splitter.init, false);
+    document.addEventListener("DOMContentLoaded", splittr.init, false);
 
 ### Making Panels Collapsible
 
