@@ -327,7 +327,7 @@
 				var dPos = newContainerOffsetHeight - oldContainerOffsetHeight;
 			}
 			// TODO: this is incomplete.  Implement some kind of resize cascade.
-		});
+		}, false);
 	};
 	splittr.util.dispatchSplittrMove = function(elem, prev, next){
 		var evnt = document.createEvent("Event");
