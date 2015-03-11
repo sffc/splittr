@@ -34,7 +34,7 @@ In your HTML, use the `data-splittr` attribute.  It should be of the following f
 
 where `direction` is either "horizontal" or "vertical", `interactive` is either "dynamic" (movable boundaries) or "static" (non-movable boundaries), and `initialBreadthN` is the initial width/height of the Nth panel in the splitter.
 
-**Important:** The object containing the `data-split` attribute *must* have a defined `width` and `height`, and it must be `position: relative`, `position: absolute`, or `position: fixed`.  All child elements will become `position: absolute`.
+**Important:** The object containing the `data-splittr` attribute *must* have a defined `width` and `height`, and it must be `position: relative`, `position: absolute`, or `position: fixed`.  All child elements will become `position: absolute`.
 
 Finally, call the `splittr.init()` function on the page load:
 
@@ -77,8 +77,8 @@ Panels can be resized programatically using the `splittr.resize(element, newSize
 
 The following events are fired on the container element (the one containing the `data-splittr` attribute):
 
-* "splitterMove" when a splitter is moved (essentially forwarding the mousemove event)
-* "splitterDone" when a splitter is dropped in a new location
+* "splittrMove" when a splitter is moved (essentially forwarding the mousemove event)
+* "splittrDone" when a splitter is dropped in a new location
 
 Both events have the following properties:
 
