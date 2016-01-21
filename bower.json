@@ -7,7 +7,8 @@
   ],
   "description": "Very simple GUI splitter for CSS and JavaScript",
   "moduleType": [
-    "amd"
+    "amd",
+    "globals"
   ],
   "keywords": [
     "splitter",
