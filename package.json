@@ -1,0 +1,26 @@
+{
+  "name": "splittr",
+  "version": "1.0.1",
+  "description": "Very simple GUI splitter for CSS and JavaScript",
+  "main": "splittr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vote539/splittr.git"
+  },
+  "keywords": [
+    "splitter",
+    "gui",
+    "layout",
+    "divider",
+    "frame"
+  ],
+  "author": "Shane Carr <shane.carr@wustl.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vote539/splittr/issues"
+  },
+  "homepage": "https://github.com/vote539/splittr#readme"
+}
