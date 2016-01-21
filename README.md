@@ -107,6 +107,10 @@ The following example makes a panel group with three panels stacked on top of ea
 		</div>
 	</div>
 
+## See it in action
+
+Splittr is deployed to production in the [classic version of Octave Online](http://octave-online.net/v1/).  (The modern version for newer user agents is built using flexbox instead.)
+
 ## Future Improvements
 
 Features I hope to implement (or merge a pull request) include:
